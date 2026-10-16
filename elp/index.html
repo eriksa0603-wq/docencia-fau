@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elaboración de Proyectos · CII 2026-2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f7fb; --card:#ffffff; --ink:#14213d; --muted:#5b6478; --line:#dde3ee;
+  --ug:#123c8c; --ug-2:#1f5fd1; --accent:#f2a900;
+  --ok:#1f8a4c; --ok-bg:#e5f5ec; --mid:#b26a00; --mid-bg:#fff3dc; --no:#b3261e; --no-bg:#fde8e7;
+  --chip:#eef2fa;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1524; --card:#171f33; --ink:#e8edf7; --muted:#a3adc2; --line:#2a3550;
+    --ug:#7fa7ff; --ug-2:#9bbcff; --accent:#ffc542;
+    --ok:#5fd394; --ok-bg:#163526; --mid:#ffc46b; --mid-bg:#3a2a10; --no:#ff8a80; --no-bg:#3d1a18;
+    --chip:#202a42;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Source Sans 3",system-ui,sans-serif}
+a{color:var(--ug-2)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.top{background:var(--ug);color:#fff}
+header.top .wrap{display:flex;gap:14px;align-items:center;padding:14px 16px;flex-wrap:wrap}
+.badge{font:700 13px/1 "Source Sans 3";background:#fff;color:#123c8c;border-radius:8px;padding:8px 10px;letter-spacing:.04em}
+header.top small{opacity:.85;display:block}
+.hero{padding:28px 0 8px}
+.kicker{color:var(--ug-2);font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+h1{font-family:"Source Serif 4",serif;font-size:clamp(28px,5vw,40px);line-height:1.15;margin:6px 0 10px}
+h2{font-family:"Source Serif 4",serif;font-size:24px;margin:28px 0 10px}
+h3{font-size:18px;margin:20px 0 6px}
+.lead{max-width:760px;color:var(--muted);font-size:17px}
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:18px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.card .role{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 6px}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:11px 16px;font-weight:700;text-decoration:none;border:1px solid var(--ug);cursor:pointer;font-size:15px}
+.btn.primary{background:var(--ug);color:#fff}
+.btn.ghost{background:transparent;color:var(--ug)}
+.btn[aria-disabled="true"]{opacity:.5;pointer-events:none}
+nav.tabs{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-top:18px}
+nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto}
+nav.tabs a{padding:12px 14px;text-decoration:none;color:var(--muted);font-weight:600;white-space:nowrap;border-bottom:3px solid transparent}
+nav.tabs a.on{color:var(--ink);border-color:var(--accent)}
+section.panel{display:none;padding-bottom:40px}
+section.panel.on{display:block}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}
+.stat .n{font:700 34px/1 "Source Serif 4",serif}
+.stat .l{color:var(--muted);font-size:14px;margin-top:6px}
+.bar{height:14px;border-radius:99px;background:var(--chip);overflow:hidden;display:flex}
+.bar span{display:block;height:100%}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--muted);margin-top:8px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:18px 0 10px}
+.chipbtn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:7px 13px;font:600 14px "Source Sans 3";cursor:pointer}
+.chipbtn.on{background:var(--ug);color:#fff;border-color:var(--ug)}
+input[type=search]{flex:1;min-width:200px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:9px 12px;font:15px "Source Sans 3"}
+.tablebox{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);background:var(--chip)}
+tr:last-child td{border-bottom:0}
+.tag{display:inline-block;border-radius:99px;padding:3px 10px;font-size:13px;font-weight:700;white-space:nowrap}
+.t-ok{background:var(--ok-bg);color:var(--ok)} .t-mid{background:var(--mid-bg);color:var(--mid)} .t-no{background:var(--no-bg);color:var(--no)}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+.note{font-size:14px;color:var(--muted);margin-top:10px}
+.timeline{list-style:none;margin:0;padding:0;border-left:3px solid var(--line);margin-left:8px}
+.timeline li{position:relative;padding:0 0 18px 22px}
+.timeline li::before{content:"";position:absolute;left:-9px;top:5px;width:15px;height:15px;border-radius:50%;background:var(--card);border:3px solid var(--ug-2)}
+.timeline li.pause::before{border-color:var(--muted)}
+.timeline li.exam::before{border-color:var(--accent);background:var(--accent)}
+.timeline .when{font-weight:700}
+.timeline .what{color:var(--muted)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.steps{counter-reset:s;display:grid;gap:12px}
+.step{counter-increment:s;position:relative;padding-left:58px}
+.step::before{content:counter(s);position:absolute;left:16px;top:16px;width:30px;height:30px;border-radius:50%;background:var(--ug);color:#fff;display:grid;place-items:center;font-weight:700}
+.eg{background:var(--chip);border-radius:10px;padding:10px 12px;font-size:15px;margin-top:8px}
+.lines{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+footer{border-top:1px solid var(--line);padding:18px 0 30px;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <span class="badge">UG · FAU</span>
+    <div><strong>Facultad de Arquitectura y Urbanismo</strong><small>Carrera de Arquitectura · Universidad de Guayaquil</small></div>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <div class="kicker">Elaboración de Proyectos · ARQ-S-CO-9-17 · CII 2026-2027</div>
+  <h1>Proyecto de tesis: de la inquietud al problema de investigación</h1>
+  <p class="lead">Aquí encuentran la ruta del semestre, la guía del Ejercicio 1 y el registro de parejas. Revisen la nómina, acuerden con su compañera o compañero y registren su modalidad antes de la fecha límite.</p>
+  <div class="actions">
+    <a class="btn primary" id="btnForm" href="#" target="_blank" rel="noopener">Registrar mi pareja o modalidad</a>
+    <a class="btn ghost" id="btnGuia" href="#" target="_blank" rel="noopener">Descargar guía del Ejercicio 1</a>
+  </div>
+  <p class="note" id="formNote"></p>
+  <div class="people">
+    <div class="card"><div class="role">Docente</div><strong>Arq. Erik Sánchez Armijos, MSc</strong><br><a href="mailto:erik.sancheza@ug.edu.ec">erik.sancheza@ug.edu.ec</a></div>
+    <div class="card"><div class="role">Clases</div><strong>Virtuales · miércoles y viernes</strong><br>10:00 – 12:00</div>
+    <div class="card"><div class="role">Entrega Ejercicio 1</div><strong id="fechaEntrega"></strong><br>Tarea en el aula virtual</div>
+  </div>
+</div>
+
+<nav class="tabs" aria-label="Secciones">
+  <div class="wrap">
+    <a href="#parejas" data-tab="parejas">Parejas</a>
+    <a href="#ruta" data-tab="ruta">Ruta del semestre</a>
+    <a href="#ejercicio" data-tab="ejercicio">Ejercicio 1</a>
+    <a href="#lineas" data-tab="lineas">Líneas temáticas</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- PAREJAS -->
+<section class="panel" id="parejas">
+  <h2>Registro de parejas</h2>
+  <p class="lead">El paralelo tiene 35 estudiantes, por eso se admite <strong>un solo trío</strong>; el resto trabaja en pareja o de forma individual. Una persona solo puede figurar en un registro. Si su nombre aparece como <em>Revisar</em>, figura en dos registros o en un trío adicional: escriban al docente.</p>
+  <div class="stats">
+    <div class="card stat"><div class="n" id="sTotal">0</div><div class="l">Estudiantes en nómina</div></div>
+    <div class="card stat"><div class="n" id="sPareja">0</div><div class="l">En pareja o trío</div></div>
+    <div class="card stat"><div class="n" id="sIndiv">0</div><div class="l">Individual</div></div>
+    <div class="card stat"><div class="n" id="sSin">0</div><div class="l">Sin registro</div></div>
+  </div>
+  <div class="card">
+    <strong id="barLabel">0 / 0 estudiantes registrados</strong>
+    <div class="bar" style="margin-top:10px"><span id="bP" style="background:var(--ok)"></span><span id="bI" style="background:var(--ug-2)"></span><span id="bR" style="background:var(--no)"></span></div>
+    <div class="legend"><span><i class="dot" style="background:var(--ok)"></i>En pareja o trío</span><span><i class="dot" style="background:var(--ug-2)"></i>Individual</span><span><i class="dot" style="background:var(--no)"></i>Revisar</span><span><i class="dot" style="background:var(--chip);border:1px solid var(--line)"></i>Sin registro</span></div>
+  </div>
+  <div class="tools">
+    <button class="chipbtn on" data-f="todos">Todos</button>
+    <button class="chipbtn" data-f="pareja">En pareja</button>
+    <button class="chipbtn" data-f="trio">En trío</button>
+    <button class="chipbtn" data-f="individual">Individual</button>
+    <button class="chipbtn" data-f="sin">Sin registro</button>
+    <button class="chipbtn" data-f="revisar">Revisar</button>
+    <input type="search" id="q" placeholder="Buscar por apellido o nombre" aria-label="Buscar estudiante">
+  </div>
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>Estudiante</th><th>Situación</th><th>Pareja</th><th>Línea temática</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+  <p class="note">Actualizado: <span id="upd"></span>. La página se actualiza con las respuestas del formulario; un registro puede tardar en aparecer.</p>
+</section>
+
+<!-- RUTA -->
+<section class="panel" id="ruta">
+  <h2>Ruta del semestre</h2>
+  <p class="lead">Unidad 1: investigación (problema, objetivos, marco teórico, metodología). Unidad 2: programación arquitectónica (necesidades, esquemas, relaciones, zonificación, partido).</p>
+  <ul class="timeline" id="timeline"></ul>
+  <h3>Evaluación (sílabo)</h3>
+  <div class="tablebox"><table>
+    <thead><tr><th>Componente</th><th>Peso</th><th>Actividades</th></tr></thead>
+    <tbody>
+      <tr><td>Gestión formativa</td><td>33</td><td>Trabajo participativo en clases; reporte de talleres y equipos colaborativos</td></tr>
+      <tr><td>Gestión práctica y autónoma</td><td>33</td><td>Exposiciones individuales y grupales; uso de acervos bibliotecarios; talleres</td></tr>
+      <tr><td>Acreditación y validación</td><td>34</td><td>Exámenes teóricos y prácticos; otros productos</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- EJERCICIO -->
+<section class="panel" id="ejercicio">
+  <h2>Ejercicio 1: de la inquietud a la línea temática</h2>
+  <p class="lead">Esta semana no se pide un tema definitivo. Se pide una exploración bien observada. El tema se precisa en la semana 2 y el problema en la semana 3. La guía completa trae ejemplos resueltos y las fichas F1 a F4.</p>
+
+  <h3>Temática, tema y problema</h3>
+  <div class="grid2">
+    <div class="card"><div class="role">Temática · semana 1</div><strong>Campo amplio de interés</strong><div class="eg">Espacio público y clima urbano</div></div>
+    <div class="card"><div class="role">Tema · semana 2</div><strong>Objeto + sitio/lugar + época, hasta 15 palabras</strong><div class="eg">Sombra y confort en las plazas del centro de Guayaquil, 2027</div></div>
+    <div class="card"><div class="role">Problema · semana 3</div><strong>Pregunta en presente, hasta 20 palabras</strong><div class="eg">¿Qué factor físico limita el uso diurno de las plazas del centro de Guayaquil en 2027?</div></div>
+  </div>
+
+  <h3>Los cuatro pasos</h3>
+  <div class="steps">
+    <div class="card step"><strong>Diez situaciones observadas · Ficha F1</strong><br>Lugar concreto, qué ocurre y a quiénes afecta.<div class="eg">En la parada de bus frente a mi colegio no hay sombra; las personas esperan bajo el sol.</div></div>
+    <div class="card step"><strong>Tres líneas temáticas · Ficha F2</strong><br>Agrupen las situaciones afines. Nombren cada línea sin lugar ni año, con escala, lugar posible y personas involucradas.</div>
+    <div class="card step"><strong>Valoración con criterios · Ficha F3</strong><br>Relevancia, originalidad, viabilidad e interés personal, de 1 a 3, con una frase de justificación. Una viabilidad de 1 obliga a revisar la línea.</div>
+    <div class="card step"><strong>Intención de estudio · Ficha F4</strong><br>"Quiero estudiar… porque…", "Me preocupa no saber…", vínculo con FCI o Proyectos IX, una fuente y una persona clave.</div>
+  </div>
+
+  <h3>Entrega</h3>
+  <div class="tablebox"><table><tbody>
+    <tr><th>Qué</th><td>Un PDF con datos de identificación y fichas F1 a F4</td></tr>
+    <tr><th>Dónde</th><td>Tarea "Ejercicio 1" del aula virtual</td></tr>
+    <tr><th>Fecha límite</th><td id="fechaEntrega2"></td></tr>
+    <tr><th>Archivo</th><td>ELP_E1_Apellido1_Apellido2.pdf (pareja) · ELP_E1_Apellido1_Apellido2_Apellido3.pdf (trío) · ELP_E1_Apellido.pdf (individual)</td></tr>
+    <tr><th>Quién sube</th><td>En pareja o trío, una sola persona</td></tr>
+  </tbody></table></div>
+</section>
+
+<!-- LINEAS -->
+<section class="panel" id="lineas">
+  <h2>Líneas temáticas del paralelo</h2>
+  <p class="lead">Aquí aparecerán las líneas elegidas por cada pareja o persona tras la revisión del Ejercicio 1. Sirven para formar grupos de asesoría por afinidad temática.</p>
+  <div class="lines" id="linesBox"></div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">Elaboración de Proyectos (1214360) · Carrera de Arquitectura, FAU-UG · Fuentes: sílabo y plan analítico de la asignatura, período 2026-2027.</div>
+</footer>
+
+<script>
+/* =========================================================
+   DATOS · edite solo este bloque para actualizar la página
+   ========================================================= */
+const DATA = {
+  actualizado: "2026-10-16",
+  fechaEntrega: "Martes 20 de octubre de 2026, 23:59",
+  formsUrl: "",                       // pegue aquí el enlace de Microsoft Forms
+  guiaUrl: "guia-ejercicio-1.pdf",    // PDF de la guía, en la misma carpeta del repositorio
+  // Nómina: "APELLIDOS NOMBRES", una persona por línea
+  estudiantes: [
+    "Acosta Mejia Xiomara Dyan",
+    "Alcaciega Guanin Glenda Judith",
+    "Alvarado Suarez Danna Lissette",
+    "Cabrera Moncada Lia Gabriela",
+    "Calero Cisneros Edison Daniel",
+    "Camacho Ortiz Jazmin Alexandra",
+    "Campuzano Cañarte Ashley Del Rocio",
+    "Chavez Ashqui Ximena Andrea",
+    "Cornejo Zamora Adriana Stefania",
+    "Echeverria Ochoa Maria Belen",
+    "Elizalde Aristeguieta Mia Valentina",
+    "Escobar Villon Maria De Los Angeles",
+    "Garcia Fuentes Ricardo Alonso",
+    "Garcia Verduga Jorge Raul",
+    "Garzon Gallardo Luis Sixto",
+    "Guzman Aguirre Camila Luisanna",
+    "Iñiguez Castillo Addan Shaquile",
+    "Ladines Mora Nadia Pamela",
+    "Leon Santana Nixon Bernardo",
+    "Lindao Torres Reynaldo Ismael",
+    "Liriano Tomala Jeancarlos Josue",
+    "Martillo Mosquera Hillary Andrea",
+    "Mera Tomala Luisana Arelys",
+    "Negrete Cevallos Israel Jose",
+    "Perez Coral Jeremy Ademar",
+    "Saltos Canchingre Jeffry Adony",
+    "Torres Muñoz Melissa Katherine",
+    "Tumbaco Delgado Andy Alfredo",
+    "Veliz Lavayen Jean Pierre",
+    "Vera Espinoza Josue David",
+    "Villavicencio Vera Oswaldo Guillermo",
+    "Yepez Arias Emily Johanna",
+    "Yungan Valdez Mauro Patricio",
+    "Yuquilema Buñay Jose Antonio",
+    "Zambrano Murga Ericka Nicole"
+  ],
+  // Registros del formulario. modalidad: "pareja", "trio" o "individual". Solo se admite un trío. linea: texto libre o "".
+  registros: [
+  ]
+};
+
+const RUTA = [
+  ["Semana 1 · 12–16 oct","Tema de investigación: objeto, sitio/lugar, época, criterios · Ejercicio 1",""],
+  ["Semana 2 · 19–23 oct","Exploración inicial: fuentes, entrevista, observación · Ejercicio 2",""],
+  ["Semana 3 · 26–30 oct","Planteamiento del problema, objetivos, justificación · Ejercicio 3",""],
+  ["Semana 4 · 2–6 nov","Revisión del capítulo 1 (2 y 3 nov feriados)",""],
+  ["Semana 5 · 9–13 nov","Variables, hipótesis, operacionalización · Jornada del Diseño",""],
+  ["Semana 6 · 16–20 nov","Marco referencial: teórico, conceptual, contextual y legal",""],
+  ["Semana 7 · 23–27 nov","Marco metodológico: enfoque, tipo, métodos, técnicas e instrumentos",""],
+  ["Semana 8 · 30 nov–4 dic","Examen del primer parcial","exam"],
+  ["Semanas 9–11 · 7–22 dic","Unidad 2: requerimientos de usuarios y programa de necesidades",""],
+  ["Semana 12 · 23 dic–1 ene","Vacaciones docentes y Año Nuevo","pause"],
+  ["Semanas 13–14 · 4–15 ene","Esquemas funcionales e integración con el programa",""],
+  ["Semanas 15–16 · 18–29 ene","Matriz de relaciones, estudio de áreas, zonificación · ExpoFAU",""],
+  ["Semana 17 · 1–5 feb","Factores condicionantes y partido arquitectónico",""],
+  ["Semana 18 · 8–16 feb","Carnaval (8–9 feb) · Examen del segundo parcial (10–16 feb)","exam"],
+  ["17–23 feb","Recuperación y mejoramiento · Fin del período: 25 feb 2027","pause"]
+];
+
+/* ======================= lógica ======================= */
+const norm = s => (s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpperCase().trim();
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function build(){
+  const map = {};
+  DATA.estudiantes.forEach(n => map[norm(n)] = {nombre:n, regs:[]});
+  DATA.registros.forEach((r,i) => (r.integrantes||[]).forEach(n => {
+    const k = norm(n);
+    if(!map[k]) map[k] = {nombre:n, regs:[], fuera:true};
+    map[k].regs.push(i);
+  }));
+  const trios = DATA.registros.map((r,i)=>r.modalidad==="trio"?i:-1).filter(i=>i>=0);
+  const trioExtra = new Set(trios.slice(1));
+  return Object.values(map).map(e => {
+    let estado = "sin", pareja = "", linea = "";
+    if(e.regs.length > 1 || e.fuera || (e.regs.length===1 && trioExtra.has(e.regs[0]))) estado = "revisar";
+    else if(e.regs.length === 1){
+      const r = DATA.registros[e.regs[0]];
+      estado = r.modalidad === "individual" ? "individual" : (r.modalidad === "trio" ? "trio" : "pareja");
+      pareja = (r.integrantes||[]).filter(n => norm(n) !== norm(e.nombre)).join(", ");
+      linea = r.linea || "";
+    }
+    return {...e, estado, pareja, linea};
+  }).sort((a,b) => norm(a.nombre).localeCompare(norm(b.nombre)));
+}
+
+const LABEL = {pareja:["En pareja","t-ok"], trio:["En trío","t-ok"], individual:["Individual","t-ok"], sin:["Sin registro","t-mid"], revisar:["Revisar","t-no"]};
+let filtro = "todos", rows = [];
+
+function render(){
+  const q = norm(document.getElementById("q").value);
+  const list = rows.filter(r => (filtro==="todos" || r.estado===filtro) && (!q || norm(r.nombre).includes(q)));
+  const tb = document.getElementById("tbody");
+  if(!DATA.estudiantes.length){
+    tb.innerHTML = '<tr><td colspan="4" class="empty">La nómina del paralelo se publicará en breve.</td></tr>'; return;
+  }
+  tb.innerHTML = list.length ? list.map(r => `<tr><td>${esc(r.nombre)}</td><td><span class="tag ${LABEL[r.estado][1]}">${LABEL[r.estado][0]}</span></td><td>${esc(r.pareja||"—")}</td><td>${esc(r.linea||"—")}</td></tr>`).join("")
+    : '<tr><td colspan="4" class="empty">Sin resultados para este filtro.</td></tr>';
+}
+
+function stats(){
+  const c = {pareja:0, trio:0, individual:0, sin:0, revisar:0};
+  rows.forEach(r => c[r.estado]++);
+  const total = rows.length || 0;
+  document.getElementById("sTotal").textContent = DATA.estudiantes.length;
+  document.getElementById("sPareja").textContent = c.pareja + c.trio;
+  document.getElementById("sIndiv").textContent = c.individual;
+  document.getElementById("sSin").textContent = c.sin;
+  const reg = c.pareja + c.trio + c.individual;
+  document.getElementById("barLabel").textContent = `${reg} / ${total} estudiantes registrados` + (c.revisar ? ` · ${c.revisar} por revisar` : "");
+  const pct = n => total ? (n/total*100)+"%" : "0";
+  document.getElementById("bP").style.width = pct(c.pareja + c.trio);
+  document.getElementById("bI").style.width = pct(c.individual);
+  document.getElementById("bR").style.width = pct(c.revisar);
+}
+
+function lines(){
+  const g = {};
+  DATA.registros.forEach(r => { if(r.linea){ (g[r.linea] = g[r.linea] || []).push(r.integrantes.join(" y ")); } });
+  const box = document.getElementById("linesBox"), keys = Object.keys(g).sort();
+  box.innerHTML = keys.length ? keys.map(k => `<div class="card"><div class="role">${g[k].length} registro(s)</div><strong>${esc(k)}</strong><ul>${g[k].map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`).join("")
+    : '<div class="card empty">Las líneas temáticas se publicarán tras la revisión del Ejercicio 1.</div>';
+}
+
+function tabs(){
+  const ids = ["parejas","ruta","ejercicio","lineas"];
+  const show = () => {
+    const h = location.hash.replace("#","");
+    const id = ids.includes(h) ? h : "parejas";
+    ids.forEach(x => {
+      document.getElementById(x).classList.toggle("on", x===id);
+      document.querySelector(`[data-tab="${x}"]`).classList.toggle("on", x===id);
+    });
+  };
+  window.addEventListener("hashchange", show); show();
+}
+
+(function init(){
+  document.getElementById("upd").textContent = DATA.actualizado;
+  document.getElementById("fechaEntrega").textContent = DATA.fechaEntrega;
+  document.getElementById("fechaEntrega2").textContent = DATA.fechaEntrega;
+  const bf = document.getElementById("btnForm");
+  if(DATA.formsUrl){ bf.href = DATA.formsUrl; }
+  else { bf.setAttribute("aria-disabled","true"); document.getElementById("formNote").textContent = "El enlace de registro se habilitará en breve."; }
+  document.getElementById("btnGuia").href = DATA.guiaUrl;
+  document.getElementById("timeline").innerHTML = RUTA.map(([w,t,c]) => `<li class="${c}"><div class="when">${w}</div><div class="what">${t}</div></li>`).join("");
+  rows = build(); stats(); render(); lines(); tabs();
+  document.querySelectorAll(".chipbtn").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll(".chipbtn").forEach(x => x.classList.remove("on"));
+    b.classList.add("on"); filtro = b.dataset.f; render();
+  }));
+  document.getElementById("q").addEventListener("input", render);
+})();
+</script>
+</body>
+</html>
