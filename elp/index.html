@@ -124,23 +124,22 @@ footer{border-top:1px solid var(--line);padding:18px 0 30px;color:var(--muted);f
 <!-- PAREJAS -->
 <section class="panel" id="parejas">
   <h2>Registro de parejas</h2>
-  <p class="lead">El paralelo tiene 35 estudiantes, por eso se admite <strong>un solo trío</strong>; el resto trabaja en pareja o de forma individual. Una persona solo puede figurar en un registro. Si su nombre aparece como <em>Revisar</em>, figura en dos registros o en un trío adicional: escriban al docente.</p>
+  <p class="lead">El paralelo tiene 35 estudiantes: <strong>todos trabajan en pareja</strong>, salvo un único trío, cuyo cupo ya está ocupado. Una persona solo puede figurar en un registro. Si su nombre aparece como <em>Revisar</em>, escriba al docente.</p>
   <div class="stats">
     <div class="card stat"><div class="n" id="sTotal">0</div><div class="l">Estudiantes en nómina</div></div>
-    <div class="card stat"><div class="n" id="sPareja">0</div><div class="l">En pareja o trío</div></div>
-    <div class="card stat"><div class="n" id="sIndiv">0</div><div class="l">Individual</div></div>
+    <div class="card stat"><div class="n" id="sPareja">0</div><div class="l">En pareja</div></div>
+    <div class="card stat"><div class="n" id="sTrio">0</div><div class="l">En el trío</div></div>
     <div class="card stat"><div class="n" id="sSin">0</div><div class="l">Sin registro</div></div>
   </div>
   <div class="card">
     <strong id="barLabel">0 / 0 estudiantes registrados</strong>
     <div class="bar" style="margin-top:10px"><span id="bP" style="background:var(--ok)"></span><span id="bI" style="background:var(--ug-2)"></span><span id="bR" style="background:var(--no)"></span></div>
-    <div class="legend"><span><i class="dot" style="background:var(--ok)"></i>En pareja o trío</span><span><i class="dot" style="background:var(--ug-2)"></i>Individual</span><span><i class="dot" style="background:var(--no)"></i>Revisar</span><span><i class="dot" style="background:var(--chip);border:1px solid var(--line)"></i>Sin registro</span></div>
+    <div class="legend"><span><i class="dot" style="background:var(--ok)"></i>En pareja</span><span><i class="dot" style="background:var(--ug-2)"></i>En el trío</span><span><i class="dot" style="background:var(--no)"></i>Revisar</span><span><i class="dot" style="background:var(--chip);border:1px solid var(--line)"></i>Sin registro</span></div>
   </div>
   <div class="tools">
     <button class="chipbtn on" data-f="todos">Todos</button>
     <button class="chipbtn" data-f="pareja">En pareja</button>
     <button class="chipbtn" data-f="trio">En trío</button>
-    <button class="chipbtn" data-f="individual">Individual</button>
     <button class="chipbtn" data-f="sin">Sin registro</button>
     <button class="chipbtn" data-f="revisar">Revisar</button>
     <input type="search" id="q" placeholder="Buscar por apellido o nombre" aria-label="Buscar estudiante">
@@ -195,7 +194,7 @@ footer{border-top:1px solid var(--line);padding:18px 0 30px;color:var(--muted);f
     <tr><th>Qué</th><td>Un PDF con datos de identificación y fichas F1 a F4</td></tr>
     <tr><th>Dónde</th><td>Tarea "Ejercicio 1" del aula virtual</td></tr>
     <tr><th>Fecha límite</th><td id="fechaEntrega2"></td></tr>
-    <tr><th>Archivo</th><td>ELP_E1_Apellido1_Apellido2.pdf (pareja) · ELP_E1_Apellido1_Apellido2_Apellido3.pdf (trío) · ELP_E1_Apellido.pdf (individual)</td></tr>
+    <tr><th>Archivo</th><td>ELP_E1_Apellido1_Apellido2.pdf (pareja) · ELP_E1_Apellido1_Apellido2_Apellido3.pdf (trío)</td></tr>
     <tr><th>Quién sube</th><td>En pareja o trío, una sola persona</td></tr>
   </tbody></table></div>
 </section>
@@ -218,7 +217,7 @@ footer{border-top:1px solid var(--line);padding:18px 0 30px;color:var(--muted);f
    DATOS · edite solo este bloque para actualizar la página
    ========================================================= */
 const DATA = {
-  actualizado: "20 de octubre de 2026, 10:30",
+  actualizado: "20 de octubre de 2026, 11:00",
   fechaEntrega: "Martes 20 de octubre de 2026, 23:59",
   formsUrl: "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=53YPJQVh40KC0L58RgrqWVGdHVB-G2BHl3gezOZxPkRUMUpQUEFNUzJMRjNPQlFMSFpZS0tQTkpWMC4u", // Microsoft Forms UG
   guiaUrl: "guia-ejercicio-1.pdf",    // PDF de la guía, en la misma carpeta del repositorio
@@ -260,13 +259,12 @@ const DATA = {
     "Yuquilema Buñay Jose Antonio",
     "Zambrano Murga Ericka Nicole"
   ],
-  // Registros del formulario. modalidad: "pareja", "trio" o "individual". Solo se admite un trío. linea: texto libre o "".
+  // Registros del formulario. modalidad: "pareja" o "trio". Solo se admite un trío; la opción individual quedó sin efecto el 20/10/2026. linea: texto libre o "".
   registros: [
     {integrantes: ["Torres Muñoz Melissa Katherine", "Chavez Ashqui Ximena Andrea"], modalidad: "pareja", linea: ""},
     {integrantes: ["Camacho Ortiz Jazmin Alexandra", "Yungan Valdez Mauro Patricio", "Echeverria Ochoa Maria Belen"], modalidad: "trio", linea: ""},
     {integrantes: ["Ladines Mora Nadia Pamela", "Alcaciega Guanin Glenda Judith"], modalidad: "pareja", linea: ""},
-    {integrantes: ["Yepez Arias Emily Johanna", "Escobar Villon Maria De Los Angeles"], modalidad: "pareja", linea: ""},
-    {integrantes: ["Garcia Verduga Jorge Raul", "Acosta Mejia Xiomara Dyan", "Villavicencio Vera Oswaldo Guillermo"], modalidad: "trio", linea: ""}
+    {integrantes: ["Yepez Arias Emily Johanna", "Escobar Villon Maria De Los Angeles"], modalidad: "pareja", linea: ""}
   ]
 };
 
@@ -334,14 +332,14 @@ function stats(){
   rows.forEach(r => c[r.estado]++);
   const total = rows.length || 0;
   document.getElementById("sTotal").textContent = DATA.estudiantes.length;
-  document.getElementById("sPareja").textContent = c.pareja + c.trio;
-  document.getElementById("sIndiv").textContent = c.individual;
+  document.getElementById("sPareja").textContent = c.pareja;
+  document.getElementById("sTrio").textContent = c.trio;
   document.getElementById("sSin").textContent = c.sin;
   const reg = c.pareja + c.trio + c.individual;
   document.getElementById("barLabel").textContent = `${reg} / ${total} estudiantes registrados` + (c.revisar ? ` · ${c.revisar} por revisar` : "");
   const pct = n => total ? (n/total*100)+"%" : "0";
-  document.getElementById("bP").style.width = pct(c.pareja + c.trio);
-  document.getElementById("bI").style.width = pct(c.individual);
+  document.getElementById("bP").style.width = pct(c.pareja);
+  document.getElementById("bI").style.width = pct(c.trio);
   document.getElementById("bR").style.width = pct(c.revisar);
 }
 
