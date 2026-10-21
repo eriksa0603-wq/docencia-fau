@@ -124,7 +124,7 @@ footer{border-top:1px solid var(--line);padding:18px 0 30px;color:var(--muted);f
 <!-- PAREJAS -->
 <section class="panel" id="parejas">
   <h2>Registro de parejas</h2>
-  <p class="lead">El paralelo tiene 35 estudiantes: <strong>todos trabajan en pareja</strong>, salvo un único trío, cuyo cupo ya está ocupado. Una persona solo puede figurar en un registro. Si su nombre aparece como <em>Revisar</em>, escriba al docente.</p>
+  <p class="lead">El paralelo tiene 35 estudiantes: <strong>todos trabajan en pareja</strong>, salvo un único trío, cuyo cupo ya está ocupado. Una persona solo puede figurar en un registro. Si su nombre aparece como <em>Revisar</em>, su registro está incompleto o duplicado: escriba al docente.</p>
   <div class="stats">
     <div class="card stat"><div class="n" id="sTotal">0</div><div class="l">Estudiantes en nómina</div></div>
     <div class="card stat"><div class="n" id="sPareja">0</div><div class="l">En pareja</div></div>
@@ -217,7 +217,7 @@ footer{border-top:1px solid var(--line);padding:18px 0 30px;color:var(--muted);f
    DATOS · edite solo este bloque para actualizar la página
    ========================================================= */
 const DATA = {
-  actualizado: "20 de octubre de 2026, 11:00",
+  actualizado: "21 de octubre de 2026, 10:15",
   fechaEntrega: "Martes 20 de octubre de 2026, 23:59",
   formsUrl: "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=53YPJQVh40KC0L58RgrqWVGdHVB-G2BHl3gezOZxPkRUMUpQUEFNUzJMRjNPQlFMSFpZS0tQTkpWMC4u", // Microsoft Forms UG
   guiaUrl: "guia-ejercicio-1.pdf",    // PDF de la guía, en la misma carpeta del repositorio
@@ -264,7 +264,17 @@ const DATA = {
     {integrantes: ["Torres Muñoz Melissa Katherine", "Chavez Ashqui Ximena Andrea"], modalidad: "pareja", linea: ""},
     {integrantes: ["Camacho Ortiz Jazmin Alexandra", "Yungan Valdez Mauro Patricio", "Echeverria Ochoa Maria Belen"], modalidad: "trio", linea: ""},
     {integrantes: ["Ladines Mora Nadia Pamela", "Alcaciega Guanin Glenda Judith"], modalidad: "pareja", linea: ""},
-    {integrantes: ["Yepez Arias Emily Johanna", "Escobar Villon Maria De Los Angeles"], modalidad: "pareja", linea: ""}
+    {integrantes: ["Yepez Arias Emily Johanna", "Escobar Villon Maria De Los Angeles"], modalidad: "pareja", linea: ""},
+    {integrantes: ["Perez Coral Jeremy Ademar", "Garcia Verduga Jorge Raul"], modalidad: "pareja", linea: ""},
+    {integrantes: ["Villavicencio Vera Oswaldo Guillermo", "Acosta Mejia Xiomara Dyan"], modalidad: "pareja", linea: ""},
+    {integrantes: ["Liriano Tomala Jeancarlos Josue", "Yuquilema Buñay Jose Antonio"], modalidad: "pareja", linea: ""},
+    {integrantes: ["Garzon Gallardo Luis Sixto", "Saltos Canchingre Jeffry Adony"], modalidad: "pareja", linea: ""},
+    {integrantes: ["Elizalde Aristeguieta Mia Valentina", "Leon Santana Nixon Bernardo"], modalidad: "pareja", linea: ""},
+    {integrantes: ["Cabrera Moncada Lia Gabriela", "Alvarado Suarez Danna Lissette"], modalidad: "pareja", linea: ""},
+    {integrantes: ["Martillo Mosquera Hillary Andrea", "Guzman Aguirre Camila Luisanna"], modalidad: "pareja", linea: ""},
+    {integrantes: ["Vera Espinoza Josue David", "Negrete Cevallos Israel Jose"], modalidad: "pareja", linea: ""},
+    {integrantes: ["Mera Tomala Luisana Arelys", "Iñiguez Castillo Addan Shaquile"], modalidad: "pareja", linea: ""},
+    {integrantes: ["Garcia Fuentes Ricardo Alonso"], modalidad: "pareja", linea: ""}
   ]
 };
 
@@ -302,7 +312,8 @@ function build(){
   const trioExtra = new Set(trios.slice(1));
   return Object.values(map).map(e => {
     let estado = "sin", pareja = "", linea = "";
-    if(e.regs.length > 1 || e.fuera || (e.regs.length===1 && trioExtra.has(e.regs[0]))) estado = "revisar";
+    const inc = e.regs.length===1 && DATA.registros[e.regs[0]].modalidad==="pareja" && (DATA.registros[e.regs[0]].integrantes||[]).length!==2;
+    if(e.regs.length > 1 || e.fuera || inc || (e.regs.length===1 && trioExtra.has(e.regs[0]))) estado = "revisar";
     else if(e.regs.length === 1){
       const r = DATA.registros[e.regs[0]];
       estado = r.modalidad === "individual" ? "individual" : (r.modalidad === "trio" ? "trio" : "pareja");
